@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node/React básico</title>
+    <!-- React y ReactDOM desde CDN -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <!-- Babel standalone para JSX inline (solo demo/dev) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      body {
+        font-family: system-ui, Arial, sans-serif;
+        margin: 2rem;
+      }
+      .card {
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+      }
+      .small {
+        color: #555;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>React + Node (básico)</h1>
+    <div id="root"></div>
+    <p class="small">
+      Este frontend se sirve como estático desde <code>/public</code> con
+      Express.
+    </p>
+    <div class="card" id="api"></div>
+
+    <script type="text/babel">
+      const { useEffect, useState } = React;
+
+      function App() {
+        const [message, setMessage] = useState('Cargando...');
+
+        useEffect(() => {
+          fetch('/api/hello')
+            .then((r) => r.json())
+            .then((d) => setMessage(d.message))
+            .catch(() => setMessage('Error consultando API'));
+        }, []);
+
+        return (
+          <>
+            <h2>Componente React</h2>
+            <p>
+              Mensaje desde API: <strong>{message}</strong>
+            </p>
+          </>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
