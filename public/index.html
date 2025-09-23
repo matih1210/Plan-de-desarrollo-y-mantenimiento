@@ -3,67 +3,94 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Node/React básico</title>
-    <!-- React y ReactDOM desde CDN -->
-    <script
-      crossorigin
-      src="https://unpkg.com/react@18/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-    ></script>
-    <!-- Babel standalone para JSX inline (solo demo/dev) -->
+    <title>Demo Node + React</title>
+
+    <!-- React y ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel standalone -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <style>
+
+     <style>
       body {
+        margin: 0;
+        padding: 2rem;
         font-family: system-ui, Arial, sans-serif;
-        margin: 2rem;
+        background: #f9fafb;
+        color: #222;
       }
+
+      h1 {
+        text-align: center;
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+        color: #1e293b;
+      }
+
       .card {
-        padding: 1rem;
-        border: 1px solid #ddd;
-        border-radius: 0.5rem;
+        max-width: 600px;
+        margin: 1.5rem auto;
+        padding: 1.5rem;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
       }
+
       .small {
-        color: #555;
+        text-align: center;
+        color: #64748b;
         font-size: 0.9rem;
+        margin-top: 2rem;
+      }
+
+      code {
+        background: #f3f4f6;
+        padding: 0.2rem 0.4rem;
+        border-radius: 0.3rem;
+        font-size: 0.85rem;
+        color: #ef4444;
       }
     </style>
   </head>
+
   <body>
-    <h1>React + Node (básico)</h1>
-    <div id="root"></div>
+    <h1>🚀 Demo Node + React</h1>
+
+    <!-- Contenedor de React -->
+    <div id="root" class="card"></div>
+
+    <!-- Info extra -->
     <p class="small">
-      Este frontend se sirve como estático desde <code>/public</code> con
-      Express.
+      Este frontend se sirve como estático desde <code>/public</code> con Express.
     </p>
+
+    <!-- Contenedor API -->
     <div class="card" id="api"></div>
 
+    <!-- React app -->
     <script type="text/babel">
       const { useEffect, useState } = React;
 
       function App() {
-        const [message, setMessage] = useState('Cargando...');
+        const [message, setMessage] = useState("Cargando...");
 
         useEffect(() => {
-          fetch('/api/hello')
-            .then((r) => r.json())
-            .then((d) => setMessage(d.message))
-            .catch(() => setMessage('Error consultando API'));
+          setTimeout(() => {
+            setMessage("✅ React está funcionando en Firebase Hosting!");
+          }, 1000);
         }, []);
 
         return (
-          <>
-            <h2>Componente React</h2>
-            <p>
-              Mensaje desde API: <strong>{message}</strong>
-            </p>
-          </>
+          <div>
+            <h2>Hola desde React</h2>
+            <p>{message}</p>
+          </div>
         );
       }
 
-      const root = ReactDOM.createRoot(document.getElementById('root'));
+      const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(<App />);
     </script>
   </body>
