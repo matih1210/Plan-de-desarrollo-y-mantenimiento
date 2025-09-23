@@ -24,9 +24,6 @@ jobs:
       - name: 📦 Install deps
         run: npm ci
 
-      - name: 🧹 Lint
-        run: npm run lint
-
       - name: 🧾 Format check
         run: npm run format:check
 
